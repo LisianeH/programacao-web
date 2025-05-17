@@ -1,3 +1,3 @@
 <div class="logo">
-    <img scr="imagens/logotipo.png" alt="Logo do KamiSama">
+    <img src="imagens/logo.jpg" alt="Logo do KamiSama">
 </div>
