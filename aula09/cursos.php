@@ -28,8 +28,8 @@
     </main>
     <!--rodapé-->
     <footer class="rodape">
-        <?php include_once "layout/rodape.php" ?>
         <?php include "layout/menu.php"; ?>
+        <?php include_once "layout/rodape.php" ?>
     </footer>
 </body>
 </html>
