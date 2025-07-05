@@ -1,5 +1,13 @@
 <link rel="stylesheet" href="../style/style-login.css">
-<?php require_once "funtions.php"; ?>
+<?php
+require_once "funtions.php";
+$connection = conectar();
+$erroLogin = "";
+
+if (isset($_POST['acessar'])) {
+    $erroLogin = login($connection);
+}
+?>
 
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -17,6 +25,12 @@
             <br>
             <label for="password">Senha:</label>
             <input type="password" name="senha" placeholder="Insira sua senha" required>
+            <br>
+
+            <?php if (!empty($erroLogin)) : ?>
+                <p class="erro-login"><?php echo $erroLogin; ?></p>
+            <?php endif; ?>
+
             <br>
             <button type="submit" name="acessar">Entrar</button>
 

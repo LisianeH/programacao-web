@@ -2,10 +2,21 @@
 <?php session_start(); 
 $seguranca = isset( $_SESSION['ativa'] ) ? TRUE : header( "location: login.php" );
 ?>
+<?php require 'funtions.php'; ?> 
 
 <?php if ( $seguranca ) { ?>
-    <h1>Acesso ao Painel Administrativo</h1>
-    <h3>Bem vindo(a), <?php echo $_SESSION['nome']; ?></h3>
+<div class="top-admin">
+    <div>
+        <h1>Acesso ao Painel Administrativo</h1>
+        <h3>Bem vindo(a), <?php echo $_SESSION['nome']; ?></h3>
+    </div>
+    <div class="user-info">
+        <img src="../<?php echo $_SESSION['foto']; ?>" alt="Foto de <?php echo $_SESSION['nome']; ?>" class="foto-admin">
+        <div>
+            <small><?php echo $_SESSION['email']; ?></small>
+        </div>
+    </div>
+</div>
 <?php } ?>
 
 <nav>
@@ -52,19 +63,23 @@ $seguranca = isset( $_SESSION['ativa'] ) ? TRUE : header( "location: login.php" 
     <section id="produtos">
         <h2>Produtos Cadastrados</h2>
         <div class="grid-container">
-            <?php
-            $query = "SELECT * FROM produtos";
-            $result = mysqli_query($connection, $query);
-
-            while ($produto = mysqli_fetch_assoc($result)) {
-                echo "<div class='grid-item'>";
-                echo "<img src='../{$produto['foto']}' alt='{$produto['nome']}' width='150' height='150' style='object-fit:cover; border-radius:8px;'>";
-                echo "<h3>{$produto['nome']}</h3>";
-                echo "<p>R$ {$produto['preco']}</p>";
-                echo "<p>{$produto['descricao']}</p>";
-                echo "</div>";
-            }
-            ?>
+        <?php
+        $conn = conectar();
+        $resultado = $conn->query("SELECT * FROM produtos");
+        while ($produto =  $resultado->fetch_assoc()):
+        ?>
+            <div class="grid-item">
+                <img src="../<?php echo $produto['foto']; ?>" alt="<?php echo $produto['nome']; ?>" width="150" height="200" style="object-fit:cover; border-radius:8px;">
+                <h3><?php echo $produto['nome']; ?></h3>
+                <p>R$ <?php echo number_format($produto['preco'], 2, ',', '.'); ?></p>
+                <p><?php echo $produto['descricao']; ?></p>
+                <a href="excluirProduto.php?id=<?php echo $produto['id']; ?>" 
+                onclick="return confirm('Tem certeza que deseja excluir este produto?')" 
+                class="botao-excluir">Excluir</a>
+            </div>
+        <?php endwhile; ?>
         </div>
     </section>
 </main>
+
+<?php require '../includes/footer.php'; ?>

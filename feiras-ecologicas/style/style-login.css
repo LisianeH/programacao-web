@@ -23,10 +23,11 @@ fieldset {
 }
 
 legend {
-    font-size: 1.5em;
-    color: #333;
+    font-size: 24px;
+    color: #000000;
     margin-bottom: 15px;
     text-align: center;
+    font-weight: bold;
 }
 
 input[type="email"],
@@ -37,7 +38,15 @@ input[type="password"] {
     border: 1px solid #ccc;
     border-radius: 8px;
     box-sizing: border-box;
-    font-size: 1em;
+    font-size: 16px;
+}
+
+/* Mensagem de Erro */
+.erro-login {
+    color: #f44336;
+    font-size: 12px;
+    margin: 5px 5px;
+    text-align: center;
 }
 
 button {
@@ -47,9 +56,8 @@ button {
     color: white;
     border: none;
     border-radius: 8px;
-    font-size: 1.1em;
+    font-size: 16px;
     cursor: pointer;
-    margin-top: 10px;
 }
 
 button:hover {
@@ -64,7 +72,7 @@ button:hover {
 .voltar a {
     color: #4CAF50;
     text-decoration: none;
-    font-size: 0.95em;
+    font-size: 16px;
 }
 
 .voltar a:hover {
