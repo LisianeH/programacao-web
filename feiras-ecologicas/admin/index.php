@@ -24,6 +24,7 @@ $seguranca = isset( $_SESSION['ativa'] ) ? TRUE : header( "location: login.php" 
         <li><a href="#mensagens">Mensagens</a></li>
         <li><a href="#adicionarProduto">Adicionar Produto</a></li>
         <li><a href="#produtos">Produtos</a></li>
+        <li><a href="#usuarios">Administradores</a></li>
         <li><a href="logout.php">Sair</a></li>
     </ul>
 </nav>
@@ -43,7 +44,8 @@ $seguranca = isset( $_SESSION['ativa'] ) ? TRUE : header( "location: login.php" 
             echo "E-mail: {$msg['email']}<br>"; 
             echo "Telefone: {$msg['telefone']}<br>";
             echo "<p>Mensagem: {$msg['mensagem']}</p>";
-            echo "Enviado em: {$msg['data_envio']}";
+            $dataFormatada = date("d/m/Y H:i", strtotime($msg['data_envio']));
+            echo "Enviado em: $dataFormatada";
             echo "</div>";
         }
         ?>
@@ -80,6 +82,33 @@ $seguranca = isset( $_SESSION['ativa'] ) ? TRUE : header( "location: login.php" 
         <?php endwhile; ?>
         </div>
     </section>
+
+    <section id="usuarios">
+        <h2>Administradores Cadastrados</h2>
+        <a href="adicionarUsuario.php" class="botao-adicionar">+ Adicionar Novo Administrador</a>
+
+        <div class="lista-usuarios">
+            <?php
+            $query = "SELECT * FROM usuarios ORDER BY nome ASC";
+            $result = mysqli_query($connection, $query);
+
+            while ($usuario = mysqli_fetch_assoc($result)) {
+                echo "<div class='usuario-item'>";
+                echo "<img src='../{$usuario['foto']}' alt='{$usuario['nome']}'>";
+                echo "<div class='usuario-info'>";
+                echo "<h3>{$usuario['nome']}</h3>";
+                echo "<p>{$usuario['email']}</p>";
+                echo "</div>";
+                echo "<div class='usuario-acoes'>";
+                echo "<a href='editarUsuario.php?id={$usuario['id']}' class='editar'>Editar</a>";
+                echo "<a href='excluirUsuario.php?id={$usuario['id']}' class='excluir' onclick=\"return confirm('Tem certeza que deseja excluir este usuário?')\">Excluir</a>";
+                echo "</div>";
+                echo "</div>";
+            }
+            ?>
+        </div>
+    </section>
+
 </main>
 
 <?php require '../includes/footer.php'; ?>
